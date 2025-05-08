@@ -1,7 +1,8 @@
 import { spawn } from "child_process";
 import path from "path";
+import * as elysia from "elysia";
 
-export function uploadFile() {
+export function uploadFile(body: { file: File }) {
   const email = {
     sender: "Linwood Sloan <Linwood@goline.ca>",
     receiver: "user7-ext4@gvc.ceas-challenge.cc",
@@ -12,29 +13,31 @@ http://somateco.com.br/folderz/ready.php
 `,
     urls: 1,
   };
-
-  try {
-    const python = spawn("python3", ["detect.py"], {
-      cwd: path.resolve(__dirname, "../model"),
-    });
-
-    python.stdin.write(JSON.stringify(email));
-    python.stdin.end();
-
-    python.stdout.on("data", (data) => {
-      console.log(`Result: ${data.toString()}`);
-    });
-
-    python.stderr.on("data", (data) => {
-      console.error(`Error: ${data.toString()}`);
-    });
-    return "file upload";
-  } catch (error) {
-    console.error("Error:", error);
-    return "file upload error";
+  if (!body.file) {
+    throw new Error("No file provided");
   }
+
+  if (body.file.type !== "text/plain") {
+    throw new Error("File is not a .txt file");
+  }
+
+  const python = spawn("python3", ["detect.py"], {
+    cwd: path.resolve(__dirname, "../model"),
+  });
+
+  python.stdin.write(JSON.stringify(email));
+  python.stdin.end();
+
+  python.stdout.on("data", (data) => {
+    console.log(`Result: ${data.toString()}`);
+  });
+
+  python.stderr.on("data", (data) => {
+    console.error(`Error: ${data.toString()}`);
+  });
+  return "file upload";
 }
 
-export function uploadText() {
+export function uploadText(body: { email: string }) {
   return "text upload";
 }
