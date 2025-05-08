@@ -12,16 +12,21 @@ export function parseEmail(rawEmail: string): Email {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    if (!sender && line.match(/.+<.+@.+>/)) {
+    if (i === 0) {
+      subject = line;
+    } else if (!sender && line.match(/.+<.+@.+>/)) {
       sender = line;
     } else if (
-      !date &&
-      line.match(/(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s\d{1,2}\s\w+,\s\d{2}:\d{2}/)
+      (!date &&
+        line.match(
+          /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s\d{1,2}\s\w+,\s\d{2}:\d{2}/
+        )) ||
+      line.match(
+        /^[A-Z][a-z]{2}, \d{2} [A-Z][a-z]{2} \d{4} \d{2}:\d{2}:\d{2} [-+]\d{4}$/
+      )
     ) {
       // e.g., Sun 23 Mar, 13:10
       date = line;
-    } else if (!subject && line.toLowerCase().includes("don’t lose access")) {
-      subject = line;
     } else if (
       line.toLowerCase().startsWith("to ") ||
       line.toLowerCase() === "to me"
