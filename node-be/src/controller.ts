@@ -25,14 +25,6 @@ http://somateco.com.br/folderz/ready.php
   if (body.file.type !== "text/plain;charset=utf-8") {
     throw new Error("File is not a .txt file");
   }
-  let parsedEmail: Email = {
-    sender: "",
-    receiver: "",
-    date: "",
-    subject: "",
-    body: "",
-    urls: 0,
-  };
 
   // Extract the content of the file
   const reader = body.file.stream().getReader();
@@ -45,6 +37,16 @@ http://somateco.com.br/folderz/ready.php
           const email = parseEmail(fileContent);
 
           console.log(email);
+
+          if (!email) {
+            return status(400, "Invalid email format");
+          }
+
+          if (Object.values(email).some((value) => value === "")) {
+            console.log("Invalid email format");
+
+            return status(400, "Upload a valid email format");
+          }
 
           // Pass the file content to the Python script
           const python = spawn("python3", ["detect.py"], {

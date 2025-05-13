@@ -1,7 +1,46 @@
+import { useRef, useState } from "react";
 import "./App.css";
 import logo from "./assets/logo.png";
 
 function App() {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileUpload = () => {
+    console.log("File upload button clicked");
+
+    setUploading(true);
+    const file = fileRef.current?.files?.[0];
+    console.log("File selected:", file);
+    if (file) {
+      const data = new FormData();
+      data.append("file", file);
+      fetch("http://localhost:3000/upload-file", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => {
+          console.log(response.ok);
+
+          if (response.ok) {
+            console.log("File uploaded successfully");
+          } else {
+            console.error("File upload failed");
+          }
+        })
+        .catch((error) => {
+          console.error("Error uploading file:", error);
+        })
+        .finally(() => {
+          setUploading(false);
+        });
+      console.log("File upload request sent");
+
+      return;
+    }
+    setUploading(false);
+  };
+
   return (
     <div className="bg-[url(./assets/background.png)] h-full w-full flex">
       <div className="hidden relative w-full xl:flex flex-col justify-center px-24">
@@ -27,8 +66,19 @@ function App() {
             <p>Upload your email file as a .txt file.</p>
           </div>
           <div className="flex flex-col justify-center items-start gap-5">
-            <input type="file" accept=".txt" className="file-input" />
-            <button className="btn btn-accent text-white">Upload</button>
+            <input
+              type="file"
+              accept=".txt"
+              className="file-input"
+              ref={fileRef}
+            />
+            <button
+              className="btn btn-accent text-white"
+              onClick={handleFileUpload}
+              disabled={uploading}
+            >
+              Upload
+            </button>
           </div>
           <div className="flex flex-col justify-start items-start text-white gap-4 ">
             <h2 className="text-4xl">Detect email text</h2>
