@@ -1,7 +1,9 @@
 import { Elysia, t } from "elysia";
 import { uploadFile, uploadText } from "./controller";
+import { cors } from "@elysiajs/cors";
 
 const app = new Elysia()
+  .use(cors())
   .post("/upload-file", ({ body }) => uploadFile(body), {
     body: t.Object({ file: t.File() }),
   })

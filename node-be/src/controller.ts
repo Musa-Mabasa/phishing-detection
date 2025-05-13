@@ -80,32 +80,36 @@ http://somateco.com.br/folderz/ready.php
 }
 
 export function uploadText(body: { email: string }) {
-  console.log(body);
+  return new Promise((resolve, reject) => {
+    if (!body.email) {
+      return status(400, "No email provided");
+    }
 
-  try {
-    const email = parseEmail(body.email);
+    try {
+      const email = parseEmail(body.email);
 
-    console.log(email);
+      console.log(email);
 
-    // Pass the file content to the Python script
-    const python = spawn("python3", ["detect.py"], {
-      cwd: path.resolve(__dirname, "../model"),
-    });
+      // Pass the file content to the Python script
+      const python = spawn("python3", ["detect.py"], {
+        cwd: path.resolve(__dirname, "../model"),
+      });
 
-    python.stdin.write(JSON.stringify(email));
-    python.stdin.end();
+      python.stdin.write(JSON.stringify(email));
+      python.stdin.end();
 
-    python.stdout.on("data", (data) => {
-      console.log(`Result: ${data.toString()}`);
-      return status(200, data.toString());
-    });
+      python.stdout.on("data", (data) => {
+        console.log(`Result: ${data.toString()}`);
+        resolve(data.toString());
+      });
 
-    python.stderr.on("data", (data) => {
-      console.error(`Error: ${data.toString()}`);
-      return status(200, data.toString());
-    });
-  } catch (error) {
-    console.error("Error parsing email:", error);
-    return status(500, "Internal server error");
-  }
+      python.stderr.on("data", (data) => {
+        console.error(`Error: ${data.toString()}`);
+        reject(data.toString());
+      });
+    } catch (error) {
+      console.error("Error parsing email:", error);
+      reject("Internal server error");
+    }
+  });
 }
