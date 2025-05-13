@@ -5,7 +5,7 @@ const app = new Elysia()
   .post("/upload-file", ({ body }) => uploadFile(body), {
     body: t.Object({ file: t.File() }),
   })
-  .get("/upload-text", ({ body }) => uploadText(body), {
+  .post("/upload-text", ({ body }) => uploadText(body), {
     body: t.Object({ email: t.String() }),
   })
   .onError(({ error, code }) => {
