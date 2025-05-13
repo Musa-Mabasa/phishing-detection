@@ -41,7 +41,7 @@ function App() {
             ></textarea>
             <button className="btn btn-accent text-white">Detect</button>
           </div>
-          <div className="card card-border bg-base-100 w-96 border-accent">
+          <div className="card card-border bg-base-100 w-full border-accent">
             <div className="card-body">
               <h2 className="card-title text-accent text-xl">Card Title</h2>
               <p className="w-fit text-md">Confidence Score: 90%</p>
@@ -51,7 +51,7 @@ function App() {
               </p>
             </div>
           </div>
-          <div className="card card-border bg-base-100 w-96 border-red-400">
+          <div className="card card-border bg-base-100 w-full border-red-400">
             <div className="card-body">
               <h2 className="card-title text-red-400 text-xl">Phishing</h2>
               <p className="w-fit text-md">Confidence Score: 90%</p>
