@@ -114,7 +114,7 @@ function App() {
         </div>
       </div>
       <div className="bg-white/5 backdrop-blur-md w-full h-full xl:rounded-l-2xl overflow-auto">
-        <div className="relative flex flex-col justify-start items-start h-full px-24 py-32 gap-6">
+        <div className="relative flex flex-col justify-start items-start h-full px-10 py-32 xl:py-24 xl:px-24 gap-6">
           <img
             src={logo}
             alt="logo"

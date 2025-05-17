@@ -2,8 +2,6 @@ import { spawn } from "child_process";
 import path from "path";
 import { status } from "elysia";
 import { parseEmail } from "./helpers";
-import { Email } from "./model";
-import fs from "fs";
 
 export function uploadFile(body: { file: File }) {
   console.log(body);
@@ -82,7 +80,7 @@ http://somateco.com.br/folderz/ready.php
 export function uploadText(body: { email: string }) {
   return new Promise((resolve, reject) => {
     if (!body.email) {
-      return status(400, "No email provided");
+      return reject("No email provided");
     }
 
     try {
