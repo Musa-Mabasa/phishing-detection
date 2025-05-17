@@ -37,6 +37,12 @@ function App() {
           setResult(data);
         })
         .catch((error) => {
+          setError(() => {
+            setTimeout(() => {
+              setError(false);
+            }, 5000);
+            return true;
+          });
           console.error("Error uploading file:", error);
         })
         .finally(() => {
@@ -72,7 +78,12 @@ function App() {
         setResult(data);
       })
       .catch((error) => {
-        setError(true);
+        setError(() => {
+          setTimeout(() => {
+            setError(false);
+          }, 5000);
+          return true;
+        });
         console.error("Error uploading text:", error);
       })
       .finally(() => {
@@ -112,7 +123,7 @@ function App() {
           {error && (
             <div
               role="alert"
-              className="alert alert-error absolute top-10 right-5"
+              className="alert alert-error absolute top-10 right-5 animate-bounce"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -45,7 +45,7 @@ http://somateco.com.br/folderz/ready.php
           if (Object.values(email).some((value) => value === "")) {
             console.log("Invalid email format");
 
-            return status(400, "Upload a valid email format");
+            reject("Upload a valid email format");
           }
 
           // Pass the file content to the Python script
