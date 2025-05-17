@@ -1,0 +1,12 @@
+Your Netflix Payment Failed
+
+Netflix Billing <support@netflix-alerts.com>
+Thu 28 Mar, 22:04
+to me
+
+We're having trouble processing your Netflix payment.
+
+To avoid interruption, update your billing information:
+http://netflix-update-payment.com
+
+This link will expire in 24 hours.

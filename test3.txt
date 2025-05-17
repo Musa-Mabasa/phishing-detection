@@ -1,0 +1,16 @@
+Your Uber Trip Receipt
+
+Uber <noreply@uber.com>
+Fri 22 Mar, 09:32
+to me
+
+Thanks for riding with Uber! Here’s your receipt for the trip:
+
+Pickup: Mar 22, 08:12
+Dropoff: Mar 22, 08:37
+Amount: R125.00
+
+Need help or want to rate your trip? Visit your Uber account.
+
+Best,
+The Uber Team

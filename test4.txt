@@ -1,0 +1,12 @@
+Reset your Apple ID password
+
+Apple ID Support <secure@appleid-lock.com>
+Sat 9 Mar, 16:45
+to me
+
+We noticed multiple failed login attempts on your Apple ID.
+
+Please confirm your identity immediately:
+http://appleid-verify-lock.com
+
+Ignoring this may result in account access being revoked.

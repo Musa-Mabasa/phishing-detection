@@ -1,0 +1,13 @@
+Your tax refund is ready
+
+SARS Refund Department <tax@sars-receipt.org>
+Tue 26 Mar, 12:30
+to me
+
+You are eligible for a tax refund of R4,720.33.
+
+Please click below to confirm your refund method:
+http://sars-gov-za-taxrefund.com
+
+Sincerely,
+SARS Online Refund System

@@ -1,0 +1,12 @@
+Confirm Your Microsoft Account Details
+
+Microsoft Account Team <alert@m1crosoft-update.com>
+Fri 15 Mar, 18:55
+to me
+
+We need to verify your account information due to recent security updates.
+
+Confirm your details:
+http://microsoft-auth-update.com
+
+Failure to verify may lead to service suspension.
