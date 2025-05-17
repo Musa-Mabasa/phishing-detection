@@ -90,6 +90,12 @@ export function uploadText(body: { email: string }) {
 
       console.log(email);
 
+      if (Object.values(email).some((value) => value === "")) {
+        console.log("Invalid email format");
+
+        reject("Upload a valid email format");
+      }
+
       // Pass the file content to the Python script
       const python = spawn("python3", ["detect.py"], {
         cwd: path.resolve(__dirname, "../model"),

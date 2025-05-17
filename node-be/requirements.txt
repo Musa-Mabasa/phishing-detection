@@ -5,3 +5,4 @@ xgboost
 scipy
 matplotlib
 seaborn
+shap

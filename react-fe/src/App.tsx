@@ -9,6 +9,7 @@ function App() {
   const [emailText, setEmailText] = useState("");
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState<EmailResult | null>(null);
+  const [error, setError] = useState(false);
 
   const handleFileUpload = () => {
     console.log("File upload button clicked");
@@ -71,6 +72,7 @@ function App() {
         setResult(data);
       })
       .catch((error) => {
+        setError(true);
         console.error("Error uploading text:", error);
       })
       .finally(() => {
@@ -107,6 +109,28 @@ function App() {
             alt="logo"
             className="absolute xl:hidden w-24 h-24 top-5"
           />
+          {error && (
+            <div
+              role="alert"
+              className="alert alert-error absolute top-10 right-5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Error! Failed to detect email.</span>
+            </div>
+          )}
+
           <div className="flex flex-col justify-start items-start text-white gap-4 ">
             <h2 className="text-4xl">Upload your email</h2>
             <p>Upload your email file as a .txt file.</p>
@@ -173,9 +197,19 @@ function App() {
                         %
                       </p>
                       <p>
-                        This is a legitamate email. It does not contain any
-                        phishing links or malicious content. You are safe to
-                        open this email.
+                        Reasons for this decision:{" "}
+                        {result.reasons
+                          .filter(
+                            (reason) =>
+                              reason.impact.toLowerCase() === "positive"
+                          )
+                          .map((reason) => reason.explanation.trim())
+                          .filter(
+                            (explanation, i, self) =>
+                              i === self.indexOf(explanation)
+                          )
+                          .join(". ")}
+                        .
                       </p>
                     </div>
                   </div>
@@ -203,9 +237,19 @@ function App() {
                         )}
                       </p>
                       <p>
-                        This is a phishing email. It contains malicious links or
-                        content. Do not open this email. Report it to your email
-                        provider or IT
+                        Reasons for this decision:{" "}
+                        {result.reasons
+                          .filter(
+                            (reason) =>
+                              reason.impact.toLowerCase() === "positive"
+                          )
+                          .map((reason) => reason.explanation.trim())
+                          .filter(
+                            (explanation, i, self) =>
+                              i === self.indexOf(explanation)
+                          )
+                          .join(". ")}
+                        .
                       </p>
                     </div>
                   </div>
